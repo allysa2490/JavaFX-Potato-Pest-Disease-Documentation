@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Actions"
+      stylesheets="@style.css"
+      styleClass="root"
+      spacing="20"
+      alignment="TOP_CENTER">
+
+    <!-- Header -->
+    <HBox alignment="CENTER" styleClass="header">
+        <Label text="Home" styleClass="title"/>
+    </HBox>
+
+    <!-- Content -->
+    <VBox alignment="CENTER" spacing="15" styleClass="container">
+        <Button text="Go to Page 1"
+                onAction="#goToPage"
+                userData="Page1"
+                styleClass="btn-primary"/>
+    </VBox>
+
+</VBox>

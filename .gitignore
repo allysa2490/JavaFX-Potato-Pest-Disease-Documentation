@@ -1,0 +1,56 @@
+# =========================
+# Compiled class files
+# =========================
+*.class
+out/
+
+# =========================
+# IDE files
+# =========================
+.idea/
+*.iml
+.vscode/
+*.launch
+
+# =========================
+# OS generated files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# JavaFX / build artifacts
+# =========================
+build/
+target/
+
+# =========================
+# Database files (optional safety)
+# =========================
+*.db
+*.sqlite
+database.db
+
+# If you want to keep DB structure but not data, remove above and ignore only:
+# *.db-journal
+# *.sqlite-journal
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# Temporary / runtime files
+# =========================
+*.tmp
+*.temp
+
+# =========================
+# Config (optional - depends on workflow)
+# =========================
+# Uncomment if you don't want config tracked
+# config.properties
+
+# Misc
+*.vbs

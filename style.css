@@ -1,0 +1,50 @@
+.root {
+    -fx-background-color: #0f172a; /* dark background */
+    -fx-padding: 30;
+}
+
+/* Header */
+.header {
+    -fx-padding: 10;
+}
+
+.title {
+    -fx-text-fill: #f8fafc;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+/* Container */
+.container {
+    -fx-background-color: #1e293b;
+    -fx-padding: 20;
+    -fx-background-radius: 12;
+}
+
+/* Buttons */
+.button {
+    -fx-font-size: 14px;
+    -fx-padding: 10 20;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+/* Primary button */
+.btn-primary {
+    -fx-background-color: #3b82f6;
+    -fx-text-fill: white;
+}
+
+.btn-primary:hover {
+    -fx-background-color: #2563eb;
+}
+
+/* Secondary button */
+.btn-secondary {
+    -fx-background-color: #64748b;
+    -fx-text-fill: white;
+}
+
+.btn-secondary:hover {
+    -fx-background-color: #475569;
+}
