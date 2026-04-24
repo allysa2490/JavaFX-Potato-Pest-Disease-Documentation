@@ -1,6 +1,11 @@
 # JavaFX Potato Pest Disease Documentation
 Our project in Object-Oriented Programming subject.
 
+## Previews
+![Login Preview](previews/login_preview.png)
+![Register Preview](previews/register_preview.png)
+![Dashboard Preview](previews/dashboard_preview.png)
+
 ---
 
 ## Requirements
