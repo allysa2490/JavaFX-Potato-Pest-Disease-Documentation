@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
+
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Actions"
+      styleClass="auth-root"
+      prefWidth="1280"
+      prefHeight="720">
+
+    <!-- ── Left Panel: Illustration / Branding ── -->
+    <VBox styleClass="auth-left" HBox.hgrow="ALWAYS" spacing="24" alignment="CENTER">
+
+        <!-- Leaf icon (SVG-like using labels) -->
+        <VBox styleClass="auth-illustration-bg" alignment="CENTER" spacing="16" prefWidth="320" maxWidth="320">
+            <Label text="🥔" style="-fx-font-size: 72px;"/>
+            <Label text="PestGuard PH" styleClass="auth-hero-title" wrapText="true" prefWidth="240" alignment="CENTER"/>
+            <Label text="Potato Pest &amp; Disease\nDocumentation System"
+                   styleClass="auth-hero-sub"
+                   wrapText="true"
+                   prefWidth="240"
+                   alignment="CENTER"/>
+        </VBox>
+
+        <!-- Feature bullets -->
+        <VBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 0 48;">
+            <Label text="✦  Track and document pest infestations" style="-fx-text-fill: #3d6b40; -fx-font-size: 12px;"/>
+            <Label text="✦  Record disease symptoms and treatments" style="-fx-text-fill: #3d6b40; -fx-font-size: 12px;"/>
+            <Label text="✦  Manage field observations efficiently" style="-fx-text-fill: #3d6b40; -fx-font-size: 12px;"/>
+        </VBox>
+
+    </VBox>
+
+    <!-- ── Right Panel: Login Form ── -->
+    <VBox styleClass="auth-right" HBox.hgrow="ALWAYS" spacing="20" alignment="CENTER" maxWidth="480">
+
+        <VBox styleClass="auth-form-box" spacing="18" prefWidth="380" maxWidth="380">
+
+            <!-- Title -->
+            <VBox spacing="4">
+                <Label text="Welcome back" styleClass="auth-form-title"/>
+                <Label text="Sign in to your account to continue" styleClass="auth-form-sub"/>
+            </VBox>
+
+            <Region minHeight="4"/>
+
+            <!-- Username -->
+            <VBox spacing="6">
+                <Label text="USERNAME" styleClass="input-label"/>
+                <TextField fx:id="loginUsername"
+                           promptText="Enter your username"
+                           styleClass="text-field"/>
+            </VBox>
+
+            <!-- Password -->
+            <VBox spacing="6">
+                <Label text="PASSWORD" styleClass="input-label"/>
+                <PasswordField fx:id="loginPassword"
+                               promptText="Enter your password"
+                               styleClass="text-field"/>
+            </VBox>
+
+            <!-- Error label (hidden by default) -->
+            <Label fx:id="loginError"
+                   styleClass="error-label"
+                   wrapText="true"
+                   prefWidth="308"
+                   managed="false"
+                   visible="false"/>
+
+            <Region minHeight="4"/>
+
+            <!-- Login Button -->
+            <Button text="Sign In"
+                    onAction="#handleLogin"
+                    styleClass="btn-primary"
+                    maxWidth="Infinity"
+                    prefHeight="44"/>
+
+        </VBox>
+
+        <!-- Register link -->
+        <HBox alignment="CENTER" spacing="6">
+            <Label text="Don't have an account?" style="-fx-text-fill: #3d6b40; -fx-font-size: 12px;"/>
+            <Button text="Create one"
+                    onAction="#goToPage"
+                    userData="Register"
+                    styleClass="btn-link"/>
+        </HBox>
+
+    </VBox>
+
+</HBox>

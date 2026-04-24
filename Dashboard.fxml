@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.geometry.Insets?>
+<?import java.lang.String?>
+
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Actions"
+      styleClass="root"
+      prefWidth="1280"
+      prefHeight="720">
+
+    <!-- ══════════════════════════════════════════
+         SIDEBAR
+         ══════════════════════════════════════════ -->
+    <VBox styleClass="sidebar" spacing="0">
+
+        <!-- Brand -->
+        <VBox styleClass="sidebar-brand" spacing="3">
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="🥔" style="-fx-font-size: 22px;"/>
+                <VBox spacing="1">
+                    <Label text="PestGuard PH" styleClass="sidebar-brand-text"/>
+                    <Label text="Potato Documentation" styleClass="sidebar-brand-sub"/>
+                </VBox>
+            </HBox>
+        </VBox>
+
+        <Region minHeight="8"/>
+
+        <!-- Nav Section -->
+        <Label text="NAVIGATION" styleClass="sidebar-section"/>
+
+        <Button text="📊  Dashboard"
+                onAction="#showDashboardView"
+                styleClass="nav-btn, nav-btn-active"
+                fx:id="navDashboard"/>
+
+        <Button text="🦟  Records"
+                onAction="#showRecordsView"
+                styleClass="nav-btn"
+                fx:id="navRecords"/>
+
+        <!-- Spacer -->
+        <Region VBox.vgrow="ALWAYS"/>
+
+        <Region styleClass="nav-divider" prefWidth="240"/>
+
+        <!-- Logged-in user info -->
+        <VBox spacing="4" style="-fx-padding: 16 24;">
+            <Label fx:id="sidebarUsername" text="@username" style="-fx-text-fill: #7aab7d; -fx-font-size: 12px; -fx-font-weight: 600;"/>
+            <Label fx:id="sidebarFullName" text="Full Name" style="-fx-text-fill: #2a4a2c; -fx-font-size: 11px;"/>
+        </VBox>
+
+        <Button text="↩  Sign Out"
+                onAction="#handleLogout"
+                styleClass="nav-btn"
+                style="-fx-text-fill: #cf6b6b;"/>
+
+        <Region minHeight="12"/>
+
+    </VBox>
+
+    <!-- ══════════════════════════════════════════
+         MAIN AREA
+         ══════════════════════════════════════════ -->
+    <VBox VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" spacing="0">
+
+        <!-- Top Bar -->
+        <HBox styleClass="topbar" spacing="16" alignment="CENTER_LEFT">
+            <Label fx:id="topbarTitle" text="Dashboard" styleClass="topbar-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="topbarUser" text="Logged in as" styleClass="topbar-user"/>
+            <Label fx:id="topbarChip" text="@user" styleClass="topbar-chip"/>
+        </HBox>
+
+        <!-- ── Scrollable Content ── -->
+        <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS"
+                    style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-color: transparent;">
+
+            <VBox fx:id="contentArea" styleClass="main-content" spacing="24">
+
+                <!-- ══════════════════════════════
+                     DASHBOARD VIEW
+                     ══════════════════════════════ -->
+                <VBox fx:id="dashboardView" spacing="24">
+
+                    <!-- Stats Row -->
+                    <HBox spacing="16">
+
+                        <!-- Total Records -->
+                        <VBox styleClass="card" HBox.hgrow="ALWAYS" spacing="4">
+                            <Label text="TOTAL RECORDS" styleClass="card-title"/>
+                            <Label fx:id="statTotal" text="0" styleClass="card-value"/>
+                            <Label text="All documented entries" styleClass="card-sub"/>
+                        </VBox>
+
+                        <!-- Pests -->
+                        <VBox styleClass="card" HBox.hgrow="ALWAYS" spacing="4">
+                            <Label text="PEST RECORDS" styleClass="card-title"/>
+                            <Label fx:id="statPests" text="0" styleClass="card-value"/>
+                            <Label text="Infestation cases" styleClass="card-sub"/>
+                        </VBox>
+
+                        <!-- Diseases -->
+                        <VBox styleClass="card" HBox.hgrow="ALWAYS" spacing="4">
+                            <Label text="DISEASE RECORDS" styleClass="card-title"/>
+                            <Label fx:id="statDiseases" text="0" styleClass="card-value"/>
+                            <Label text="Disease cases" styleClass="card-sub"/>
+                        </VBox>
+
+                        <!-- Severity Critical -->
+                        <VBox styleClass="card" HBox.hgrow="ALWAYS" spacing="4">
+                            <Label text="CRITICAL SEVERITY" styleClass="card-title"/>
+                            <Label fx:id="statCritical" text="0" styleClass="card-value" style="-fx-text-fill: #cf6b6b;"/>
+                            <Label text="High-priority cases" styleClass="card-sub"/>
+                        </VBox>
+
+                    </HBox>
+
+                    <!-- Recent Records Table -->
+                    <VBox styleClass="card" spacing="16">
+                        <HBox alignment="CENTER_LEFT" spacing="12">
+                            <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                <Label text="Recent Records" styleClass="section-title"/>
+                                <Label text="Latest 10 documented entries" styleClass="section-sub"/>
+                            </VBox>
+                            <Button text="+ Add New Record"
+                                    onAction="#showAddForm"
+                                    styleClass="btn-primary"/>
+                        </HBox>
+
+                        <TableView fx:id="dashboardTable" prefHeight="300" maxHeight="300">
+                            <columns>
+                                <TableColumn fx:id="colDashId" text="ID" prefWidth="60"/>
+                                <TableColumn fx:id="colDashName" text="NAME" prefWidth="200"/>
+                                <TableColumn fx:id="colDashType" text="TYPE" prefWidth="120"/>
+                                <TableColumn fx:id="colDashSeverity" text="SEVERITY" prefWidth="120"/>
+                                <TableColumn fx:id="colDashLocation" text="LOCATION" prefWidth="160"/>
+                                <TableColumn fx:id="colDashDate" text="DATE RECORDED" prefWidth="160"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+
+                </VBox>
+
+                <!-- ══════════════════════════════
+                     RECORDS VIEW
+                     ══════════════════════════════ -->
+                <VBox fx:id="recordsView" spacing="24" managed="false" visible="false">
+
+                    <!-- Header row -->
+                    <HBox alignment="CENTER_LEFT" spacing="12">
+                        <VBox spacing="2" HBox.hgrow="ALWAYS">
+                            <Label text="Pest &amp; Disease Records" styleClass="section-title"/>
+                            <Label text="Full list of documented cases" styleClass="section-sub"/>
+                        </VBox>
+                        <TextField fx:id="searchField"
+                                   promptText="🔍  Search by name or location..."
+                                   styleClass="text-field"
+                                   prefWidth="260"
+                                   onKeyReleased="#handleSearch"/>
+                        <Button text="+ Add Record"
+                                onAction="#showAddForm"
+                                styleClass="btn-primary"/>
+                    </HBox>
+
+                    <!-- Records Table -->
+                    <VBox styleClass="card" spacing="0">
+                        <TableView fx:id="recordsTable" prefHeight="420" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
+                                <TableColumn fx:id="colName" text="NAME" prefWidth="200"/>
+                                <TableColumn fx:id="colType" text="TYPE" prefWidth="110"/>
+                                <TableColumn fx:id="colSeverity" text="SEVERITY" prefWidth="110"/>
+                                <TableColumn fx:id="colLocation" text="LOCATION" prefWidth="150"/>
+                                <TableColumn fx:id="colAffected" text="AFFECTED AREA" prefWidth="130"/>
+                                <TableColumn fx:id="colDate" text="DATE" prefWidth="130"/>
+                                <TableColumn fx:id="colActions" text="ACTIONS" prefWidth="160"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+
+                </VBox>
+
+                <!-- ══════════════════════════════
+                     ADD / EDIT FORM VIEW
+                     ══════════════════════════════ -->
+                <VBox fx:id="formView" spacing="24" managed="false" visible="false">
+
+                    <!-- Back button + title -->
+                    <HBox alignment="CENTER_LEFT" spacing="14">
+                        <Button text="← Back"
+                                onAction="#showRecordsView"
+                                styleClass="btn-secondary"/>
+                        <VBox spacing="2">
+                            <Label fx:id="formTitle" text="Add New Record" styleClass="section-title"/>
+                            <Label fx:id="formSub" text="Fill in all required fields" styleClass="section-sub"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Form Card -->
+                    <VBox styleClass="card" spacing="20" prefWidth="680" maxWidth="680">
+
+                        <!-- Hidden ID for edit mode -->
+                        <TextField fx:id="formId" managed="false" visible="false"/>
+
+                        <!-- Row 1 -->
+                        <HBox spacing="20">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label text="PEST / DISEASE NAME *" styleClass="input-label"/>
+                                <TextField fx:id="formName"
+                                           promptText="e.g. Colorado Potato Beetle"
+                                           styleClass="text-field"/>
+                            </VBox>
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label text="TYPE *" styleClass="input-label"/>
+                                <ComboBox fx:id="formType" promptText="Select type" styleClass="combo-box" maxWidth="Infinity">
+                                    <items>
+                                        <javafx.collections.FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="Pest"/>
+                                            <String fx:value="Disease"/>
+                                            <String fx:value="Fungal Disease"/>
+                                            <String fx:value="Bacterial Disease"/>
+                                            <String fx:value="Viral Disease"/>
+                                            <String fx:value="Nematode"/>
+                                            <String fx:value="Insect Pest"/>
+                                            <String fx:value="Mite"/>
+                                        </javafx.collections.FXCollections>
+                                    </items>
+                                </ComboBox>
+                            </VBox>
+                        </HBox>
+
+                        <!-- Row 2 -->
+                        <HBox spacing="20">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label text="SEVERITY *" styleClass="input-label"/>
+                                <ComboBox fx:id="formSeverity" promptText="Select severity" styleClass="combo-box" maxWidth="Infinity">
+                                    <items>
+                                        <javafx.collections.FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="Low"/>
+                                            <String fx:value="Moderate"/>
+                                            <String fx:value="High"/>
+                                            <String fx:value="Critical"/>
+                                        </javafx.collections.FXCollections>
+                                    </items>
+                                </ComboBox>
+                            </VBox>
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label text="LOCATION / FARM *" styleClass="input-label"/>
+                                <TextField fx:id="formLocation"
+                                           promptText="e.g. Benguet, Mountain Province"
+                                           styleClass="text-field"/>
+                            </VBox>
+                        </HBox>
+
+                        <!-- Row 3 -->
+                        <HBox spacing="20">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label text="AFFECTED AREA (hectares)" styleClass="input-label"/>
+                                <TextField fx:id="formAffectedArea"
+                                           promptText="e.g. 2.5"
+                                           styleClass="text-field"/>
+                            </VBox>
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label text="DATE OBSERVED *" styleClass="input-label"/>
+                                <TextField fx:id="formDate"
+                                           promptText="YYYY-MM-DD"
+                                           styleClass="text-field"/>
+                            </VBox>
+                        </HBox>
+
+                        <!-- Symptoms -->
+                        <VBox spacing="6">
+                            <Label text="SYMPTOMS / DESCRIPTION" styleClass="input-label"/>
+                            <TextArea fx:id="formSymptoms"
+                                      promptText="Describe visible symptoms, damage patterns, or observations..."
+                                      styleClass="text-area"
+                                      prefHeight="80"
+                                      wrapText="true"/>
+                        </VBox>
+
+                        <!-- Treatment -->
+                        <VBox spacing="6">
+                            <Label text="TREATMENT / RECOMMENDATION" styleClass="input-label"/>
+                            <TextArea fx:id="formTreatment"
+                                      promptText="Recommended treatment, pesticides used, or preventive measures..."
+                                      styleClass="text-area"
+                                      prefHeight="80"
+                                      wrapText="true"/>
+                        </VBox>
+
+                        <!-- Error message -->
+                        <Label fx:id="formError"
+                               styleClass="error-label"
+                               wrapText="true"
+                               managed="false"
+                               visible="false"/>
+
+                        <!-- Action Buttons -->
+                        <HBox spacing="12" alignment="CENTER_LEFT">
+                            <Button fx:id="formSubmitBtn"
+                                    text="Save Record"
+                                    onAction="#handleSaveRecord"
+                                    styleClass="btn-primary"
+                                    prefHeight="44"
+                                    prefWidth="160"/>
+                            <Button text="Cancel"
+                                    onAction="#showRecordsView"
+                                    styleClass="btn-secondary"
+                                    prefHeight="44"/>
+                        </HBox>
+
+                    </VBox>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </VBox>
+
+</HBox>
